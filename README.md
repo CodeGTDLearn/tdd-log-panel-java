@@ -10,8 +10,8 @@
 ### StackOverFlow
 
 1. StackOverFlow questions:
-      https://stackoverflow.com/questions/32790698/console-output-to-frame-text-area
+    * https://stackoverflow.com/questions/32790698/console-output-to-frame-text-area
     * https://stackoverflow.com/questions/20244554/creating-a-border-with-system-out-println
-    * 
+   
 ### Console Log
 ![img.png](img.png)
