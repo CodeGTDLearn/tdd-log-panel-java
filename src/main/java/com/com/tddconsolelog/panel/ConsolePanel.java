@@ -22,7 +22,8 @@ public class ConsolePanel {
 
     panel(
          21,
-         5, 1,
+         5,
+         1,
          1,
          true,
          true,
