@@ -3,15 +3,21 @@
 
 ### Index
 
-* [StackOverFlow](#stackoverflow)
-* [Console Log](#console-logw)
+* [StackOverFlow Question](#stackoverflow-question)
+* [ASCII Source](#ascii-source)
+* [Console Log Examples](#console-log-examples)
 
 
-### StackOverFlow
+### StackOverFlow Question
+1. https://stackoverflow.com/questions/32790698/console-output-to-frame-text-area
+2. https://stackoverflow.com/questions/20244554/creating-a-border-with-system-out-println
 
-1. StackOverFlow questions:
-    * https://stackoverflow.com/questions/32790698/console-output-to-frame-text-area
-    * https://stackoverflow.com/questions/20244554/creating-a-border-with-system-out-println
-   
-### Console Log
+### ASCII Source
+1. Box Draw Special Characteres:
+   * https://en.wikipedia.org/wiki/Box-drawing_character
+2. Unicode symbols:
+   * https://en.wikipedia.org/wiki/Unicode_symbols
+   * https://en.wikipedia.org/wiki/Bullet_(typography) -- bullet
+
+### Console Log Examples
 ![img.png](img.png)

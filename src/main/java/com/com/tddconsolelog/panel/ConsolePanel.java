@@ -7,7 +7,7 @@ public class ConsolePanel {
 
   public static void main(String[] args) {
 
-    panel(
+    panelCreator(
          21,
          5,
          3,
@@ -20,7 +20,7 @@ public class ConsolePanel {
 
   public static void simplePanel(String... texts) {
 
-    panel(
+    panelCreator(
          21,
          5,
          1,
@@ -33,7 +33,7 @@ public class ConsolePanel {
 
   public static void simplePanelScalable(int scale, String... texts) {
 
-    panel(
+    panelCreator(
          scale,
          5,
          1,
@@ -44,7 +44,7 @@ public class ConsolePanel {
     );
   }
 
-  public static void panel(
+  public static void panelCreator(
        int scale,
        int margin,
        int upSpace,
@@ -95,6 +95,7 @@ public class ConsolePanel {
 
     // "-1" Because the first element in the Array was used as title
     for (int i = formattedTexts.length - 1; i > 0; i--)
+      //https://en.wikipedia.org/wiki/Bullet_(typography)
       builder.append(ThinFont.FACE_LINE.code)
              .append("%s%%-%ss".formatted(whitespaceMargin, internalTextArea))
              .append(ThinFont.FACE_LINE.code)
@@ -299,3 +300,34 @@ public class ConsolePanel {
     BOLD, THIN, DOUBLE
   }
 }
+//    private static String simpleLineStyle(String str) {
+//
+//      return str.replace('a', '\u250c')
+//                .replace('b', '\u252c')
+//                .replace('c', '\u2510')
+//                .replace('d', '\u251c')
+//                .replace('e', '\u253c')
+//                .replace('f', '\u2524')
+//                .replace('g', '\u2514')
+//                .replace('h', '\u2534')
+//                .replace('i', '\u2518')
+//                .replace('_', '\u2500')
+//                .replace('|', '\u2502');
+//    }
+//
+//    private static String mixedLineStyle(String str) {
+//      //source: https://en.wikipedia.org/wiki/Box-drawing_character
+//      return str.replace('a', '\u250F')
+//                .replace('b', '\u252c')
+//                .replace('c', '\u2513')
+//                .replace('d', '\u2523')
+//                .replace('e', '\u253c')
+//                .replace('f', '\u252B')
+//                .replace('g', '\u2517')
+//                .replace('h', '\u2534')
+//                .replace('i', '\u251B')
+//                .replace('-', '\u2501')
+//                .replace('_', '\u2500')
+//                .replace('*', '\u2501')
+//                .replace('|', '\u2502');
+//    }
