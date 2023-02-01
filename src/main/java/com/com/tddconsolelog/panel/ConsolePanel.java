@@ -7,6 +7,10 @@ public class ConsolePanel {
 
   public static void main(String[] args) {
 
+    simplePanelScalable(21,"Simple Panel Scalable", "My First Topic");
+
+    simplePanel("Simple Panel Scalable", "My First Topic");
+
     panel(
          21,
          2,
@@ -18,8 +22,9 @@ public class ConsolePanel {
          Border.THIN,
          true,
          true,
-         "My Title", "My First Topic text", "My Second Topic text"
+         "Full Panel", "My First Topic text", "My Second Topic text"
     );
+
   }
 
   public static void simplePanel(String... texts) {

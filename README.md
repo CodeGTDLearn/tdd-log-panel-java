@@ -8,6 +8,7 @@
 * [StackOverFlow Requests](#stackoverflow-requests)
 * [ASCII Sources](#ascii-sources)
 * [Console Log Examples](#console-log-examples)
+* [Parameters Example](#parameters-example)
 
 ### Disclaimer
 1. The strucuture of this app was done without any refactoring
@@ -36,3 +37,6 @@
 ![img_1.png](img_1.png)
 ![img_2.png](img_2.png)
 ![img_3.png](img_3.png) 
+
+### Parameters Examples
+![img_4.png](img_4.png)
