@@ -7,7 +7,7 @@ public class ConsolePanel {
 
   public static void main(String[] args) {
 
-    simplePanelScalable(21,"Simple Panel Scalable", "My First Topic");
+    scalablePanel(21, "Simple Panel Scalable", "My First Topic");
 
     simplePanel("Simple Panel Scalable", "My First Topic");
 
@@ -44,7 +44,7 @@ public class ConsolePanel {
     );
   }
 
-  public static void simplePanelScalable(int scale, String... texts) {
+  public static void scalablePanel(int scale, String... texts) {
 
     panel(
          scale,
@@ -64,30 +64,32 @@ public class ConsolePanel {
   public static void panel(
        int scale,
        int margin,
-       int upSpace,
-       int downSpace,
-       Border cornersFormat,
-       Border centerMarksFormat,
-       Border horizontalLinesFormat,
-       Border verticalLinesFormat,
-       boolean uppercaseTitle,
-       boolean centralizeTitle,
-       String... titleAndOthers) {
+       int headerSpaces,
+       int footerSpaces,
+       Border cornerFormat,
+       Border centerMarkFormat,
+       Border horizontalFaceFormat,
+       Border verticalFaceFormat,
+       boolean isUppercasedTitle,
+       boolean isCentralizedTitle,
+       String... titleAndTopics) {
 
     var estimatedAdjustmentFactor = 3;
-    var title = titleAndOthers[0];
+    var title = titleAndTopics[0];
     var marginTitle = scale - (title.length() / 2) - estimatedAdjustmentFactor;
     var formattedTexts =
-         Stream.of(titleAndOthers)
-               .map(item -> item.equals(title) && centralizeTitle ? " ".repeat(
-                    marginTitle) + title : item)
-               .map(item -> item.equals(
-                    title) && uppercaseTitle ? item.toUpperCase() : item)
+         Stream.of(titleAndTopics)
+               .map(item -> item.equals(title) && isCentralizedTitle ?
+                    " ".repeat(marginTitle) + title : item)
+               .map(item -> item.equals(title) && isUppercasedTitle ?
+                    item.toUpperCase() : item)
                .toArray();
 
     var marginLimitedBySize = Math.min(margin, scale);
 
-    // scale + margin discrepacies eliminated
+    /*╔════════════════════════════════════════╗
+      ║ scale + margin discrepacies eliminated ║
+      ╚════════════════════════════════════════╝*/
     if (marginLimitedBySize % 2 != 0) -- marginLimitedBySize;
     if (scale % 2 != 0) ++ scale;
 
@@ -95,45 +97,51 @@ public class ConsolePanel {
     if (fullSize % 2 == 0) ++ fullSize;
     else -- fullSize;
 
-    var whitespaceMargin = " ".repeat(marginLimitedBySize);
-    var externalUpSpaces = "\n".repeat(upSpace);
-    var externalBottomSpaces = "\n".repeat(downSpace);
+    var marginTopic = " ".repeat(marginLimitedBySize);
+    var header = "\n".repeat(headerSpaces);
+    var footer = "\n".repeat(footerSpaces);
 
-    var upperFace = upperLine(scale, cornersFormat, centerMarksFormat, horizontalLinesFormat);
-    var divider = middleLine(scale, cornersFormat, centerMarksFormat, horizontalLinesFormat);
-    var bottomFace = bottomLine(scale, cornersFormat, centerMarksFormat, horizontalLinesFormat);
-    var faceLine = faceLine(verticalLinesFormat);
+    var upperFace =
+         upperFaceCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat);
 
-    var titleTextArea = String.valueOf(fullSize);
-    var textPreparation = new StringBuilder();
-    textPreparation.append(externalUpSpaces)
-                   .append(upperFace)
-                   .append(faceLine)
-                   .append("%s%%-%ss".formatted(whitespaceMargin, titleTextArea))
-                   .append(faceLine)
-                   .append("\n")
-                   .append(divider);
+    var dividerFace =
+         middleFaceCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat);
 
-    // "-1" Because the first element in the Array was used as title
-    // The discont-number in bodyTextArea/fullsize, subtract the size of "ordinal-ASC" and ") "
-    var bodyTextArea = String.valueOf(fullSize - 4);
+    var bottomFace =
+         bottomFaceCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat);
+
+    var rightFace = faceCreator(verticalFaceFormat);
+
+    var fillingUpTitleExcedentSpaces = String.valueOf(fullSize);
+    var textSccafold = new StringBuilder();
+    textSccafold.append(header)
+                .append(upperFace)
+                .append(rightFace)
+                .append("%s%%-%ss".formatted(marginTopic, fillingUpTitleExcedentSpaces))
+                .append(rightFace)
+                .append("\n")
+                .append(dividerFace);
+
+
+    var fillingUpTopicExcedentSpaces = String.valueOf(fullSize - 4);
     var topicEnumeration = 0;
-    var ordinalSymbolEnumerator = '\u2070';
+    var symbolEnumerator = '\u2070';
     for (int i = formattedTexts.length - 1; i > 0; i--) {
       ++ topicEnumeration;
-      textPreparation.append(faceLine)
-                     .append("%s%s%s) %%-%ss".formatted(
-                          whitespaceMargin,
-                          topicEnumeration,
-                          ordinalSymbolEnumerator,
-                          bodyTextArea
-                     ))
-                     .append(faceLine)
-                     .append("\n");
+      textSccafold.append(rightFace)
+                  .append("%s%s%s) %%-%ss".formatted(
+                       marginTopic,
+                       topicEnumeration,
+                       symbolEnumerator,
+                       fillingUpTopicExcedentSpaces
+                  ))
+                  .append(rightFace)
+                  .append("\n");
     }
-    textPreparation.append(bottomFace)
-                   .append(externalBottomSpaces);
-    System.out.printf(textPreparation.toString(), formattedTexts);
+    textSccafold.append(bottomFace)
+                .append(footer);
+
+    System.out.printf(textSccafold.toString(), formattedTexts);
   }
 
   private static String generateLine(char baseChar, int scale, char BASE_LINE) {
@@ -145,7 +153,7 @@ public class ConsolePanel {
               .replace(baseChar, BASE_LINE);
   }
 
-  private static String upperLine(
+  private static String upperFaceCreator(
        int scale,
        Border corner,
        Border centerMark,
@@ -186,7 +194,7 @@ public class ConsolePanel {
            borderStylingItems.get(1) + "\n";
   }
 
-  private static String middleLine(
+  private static String middleFaceCreator(
        int scale,
        Border corner,
        Border centerMark,
@@ -228,7 +236,7 @@ public class ConsolePanel {
            borderStylingItems.get(1) + "\n";
   }
 
-  private static String bottomLine(
+  private static String bottomFaceCreator(
        int scale,
        Border corner,
        Border centerMark,
@@ -269,7 +277,7 @@ public class ConsolePanel {
            borderStylingItems.get(1) + "\n";
   }
 
-  private static Character faceLine(Border corner) {
+  private static Character faceCreator(Border corner) {
 
     return switch (corner) {
       case BOLD -> BoldFont.FACE_LINE.code;
