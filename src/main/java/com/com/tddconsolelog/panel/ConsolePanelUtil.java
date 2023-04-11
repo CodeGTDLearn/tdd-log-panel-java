@@ -3,7 +3,7 @@ package com.com.tddconsolelog.panel;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-public class ConsolePanel {
+public class ConsolePanelUtil {
 
   public static void main(String[] args) {
 
@@ -69,9 +69,9 @@ public class ConsolePanel {
        Border cornerFormat,
        Border centerMarkFormat,
        Border horizontalFaceFormat,
-       Border verticalFaceFormat,
-       boolean isUppercasedTitle,
-       boolean isCentralizedTitle,
+       Border lateralFaceFormat,
+       boolean capitalizeTitle,
+       boolean centralizeTitle,
        String... titleAndTopics) {
 
     var estimatedAdjustmentFactor = 3;
@@ -79,9 +79,9 @@ public class ConsolePanel {
     var marginTitle = scale - (title.length() / 2) - estimatedAdjustmentFactor;
     var formattedTexts =
          Stream.of(titleAndTopics)
-               .map(item -> item.equals(title) && isCentralizedTitle ?
+               .map(item -> item.equals(title) && centralizeTitle ?
                     " ".repeat(marginTitle) + title : item)
-               .map(item -> item.equals(title) && isUppercasedTitle ?
+               .map(item -> item.equals(title) && capitalizeTitle ?
                     item.toUpperCase() : item)
                .toArray();
 
@@ -110,7 +110,8 @@ public class ConsolePanel {
     var bottomFace =
          bottomFaceCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat);
 
-    var rightFace = faceCreator(verticalFaceFormat);
+    var rightFace = formattingFace(lateralFaceFormat);
+    var leftFace = formattingFace(lateralFaceFormat);
 
     var fillingUpTitleExcedentSpaces = String.valueOf(fullSize);
     var textSccafold = new StringBuilder();
@@ -118,7 +119,7 @@ public class ConsolePanel {
                 .append(upperFace)
                 .append(rightFace)
                 .append("%s%%-%ss".formatted(marginTopic, fillingUpTitleExcedentSpaces))
-                .append(rightFace)
+                .append(leftFace)
                 .append("\n")
                 .append(dividerFace);
 
@@ -144,7 +145,7 @@ public class ConsolePanel {
     System.out.printf(textSccafold.toString(), formattedTexts);
   }
 
-  private static String generateLine(char baseChar, int scale, char BASE_LINE) {
+  private static String faceGenerator(char baseChar, int scale, char BASE_LINE) {
 
     return
          String
@@ -159,39 +160,44 @@ public class ConsolePanel {
        Border centerMark,
        Border line) {
 
-    ArrayList<Character> borderStylingItems = new ArrayList<>();
+    ArrayList<Character> borders = new ArrayList<>();
     switch (corner) {
       case BOLD -> {
-        borderStylingItems.add(BoldFont.UPPER_LEFT_CORNER.code);
-        borderStylingItems.add(BoldFont.UPPER_RIGHT_CORNER.code);
+        borders.add(BoldFont.UPPER_LEFT_CORNER.code);
+        borders.add(BoldFont.UPPER_RIGHT_CORNER.code);
       }
       case THIN -> {
-        borderStylingItems.add(ThinFont.UPPER_LEFT_CORNER.code);
-        borderStylingItems.add(ThinFont.UPPER_RIGHT_CORNER.code);
+        borders.add(ThinFont.UPPER_LEFT_CORNER.code);
+        borders.add(ThinFont.UPPER_RIGHT_CORNER.code);
       }
       case DOUBLE -> {
-        borderStylingItems.add(DoubleFont.UPPER_LEFT_CORNER.code);
-        borderStylingItems.add(DoubleFont.UPPER_RIGHT_CORNER.code);
+        borders.add(DoubleFont.UPPER_LEFT_CORNER.code);
+        borders.add(DoubleFont.UPPER_RIGHT_CORNER.code);
       }
     }
 
     switch (centerMark) {
-      case BOLD -> borderStylingItems.add(BoldFont.BASE_LINE.code);
-      case THIN -> borderStylingItems.add(ThinFont.BASE_LINE.code);
-      case DOUBLE -> borderStylingItems.add(DoubleFont.BASE_LINE.code);
+      case BOLD -> borders.add(BoldFont.BASE_LINE.code);
+      case THIN -> borders.add(ThinFont.BASE_LINE.code);
+      case DOUBLE -> borders.add(DoubleFont.BASE_LINE.code);
     }
 
     switch (line) {
-      case BOLD -> borderStylingItems.add(BoldFont.BASE_LINE.code);
-      case THIN -> borderStylingItems.add(ThinFont.BASE_LINE.code);
-      case DOUBLE -> borderStylingItems.add(DoubleFont.BASE_LINE.code);
+      case BOLD -> borders.add(BoldFont.BASE_LINE.code);
+      case THIN -> borders.add(ThinFont.BASE_LINE.code);
+      case DOUBLE -> borders.add(DoubleFont.BASE_LINE.code);
     }
 
-    var baseline = generateLine('_', scale, borderStylingItems.get(3));
+    var baseline = faceGenerator('_', scale, borders.get(3));
 
-    return borderStylingItems.get(0) + baseline +
-           borderStylingItems.get(2) + baseline +
-           borderStylingItems.get(1) + "\n";
+    return
+         new StringBuilder(baseline)
+              .insert(0, borders.get(0))
+              .append(borders.get(2))
+              .append(baseline)
+              .append(borders.get(1))
+              .append("\n")
+              .toString();
   }
 
   private static String middleFaceCreator(
@@ -201,39 +207,44 @@ public class ConsolePanel {
        Border baseLine
   ) {
 
-    ArrayList<Character> borderStylingItems = new ArrayList<>();
+    ArrayList<Character> borders = new ArrayList<>();
     switch (corner) {
       case BOLD -> {
-        borderStylingItems.add(BoldFont.MIDDLE_LEFT.code);
-        borderStylingItems.add(BoldFont.MIDDLE_RIGHT.code);
+        borders.add(BoldFont.MIDDLE_LEFT.code);
+        borders.add(BoldFont.MIDDLE_RIGHT.code);
       }
       case THIN -> {
-        borderStylingItems.add(ThinFont.MIDDLE_LEFT.code);
-        borderStylingItems.add(ThinFont.MIDDLE_RIGHT.code);
+        borders.add(ThinFont.MIDDLE_LEFT.code);
+        borders.add(ThinFont.MIDDLE_RIGHT.code);
       }
       case DOUBLE -> {
-        borderStylingItems.add(DoubleFont.MIDDLE_LEFT.code);
-        borderStylingItems.add(DoubleFont.MIDDLE_RIGHT.code);
+        borders.add(DoubleFont.MIDDLE_LEFT.code);
+        borders.add(DoubleFont.MIDDLE_RIGHT.code);
       }
     }
 
     switch (centerMark) {
-      case BOLD -> borderStylingItems.add(BoldFont.BASE_LINE.code);
-      case THIN -> borderStylingItems.add(ThinFont.BASE_LINE.code);
-      case DOUBLE -> borderStylingItems.add(DoubleFont.BASE_LINE.code);
+      case BOLD -> borders.add(BoldFont.BASE_LINE.code);
+      case THIN -> borders.add(ThinFont.BASE_LINE.code);
+      case DOUBLE -> borders.add(DoubleFont.BASE_LINE.code);
     }
 
     switch (baseLine) {
-      case BOLD -> borderStylingItems.add(BoldFont.BASE_LINE.code);
-      case THIN -> borderStylingItems.add(ThinFont.BASE_LINE.code);
-      case DOUBLE -> borderStylingItems.add(DoubleFont.BASE_LINE.code);
+      case BOLD -> borders.add(BoldFont.BASE_LINE.code);
+      case THIN -> borders.add(ThinFont.BASE_LINE.code);
+      case DOUBLE -> borders.add(DoubleFont.BASE_LINE.code);
     }
 
-    var divider = generateLine('_', scale, borderStylingItems.get(3));
+    var divider = faceGenerator('_', scale, borders.get(3));
 
-    return borderStylingItems.get(0) + divider +
-           borderStylingItems.get(2) + divider +
-           borderStylingItems.get(1) + "\n";
+    return
+         new StringBuilder(divider)
+              .insert(0, borders.get(0))
+              .append(borders.get(2))
+              .append(divider)
+              .append(borders.get(1))
+              .append("\n")
+              .toString();
   }
 
   private static String bottomFaceCreator(
@@ -242,44 +253,50 @@ public class ConsolePanel {
        Border centerMark,
        Border baseLine) {
 
-    ArrayList<Character> borderStylingItems = new ArrayList<>();
+    ArrayList<Character> borders = new ArrayList<>();
+
     switch (corner) {
       case BOLD -> {
-        borderStylingItems.add(BoldFont.LOWER_LEFT_CORNER.code);
-        borderStylingItems.add(BoldFont.LOWER_RIGHT_CORNER.code);
+        borders.add(BoldFont.LOWER_LEFT_CORNER.code);
+        borders.add(BoldFont.LOWER_RIGHT_CORNER.code);
       }
       case THIN -> {
-        borderStylingItems.add(ThinFont.LOWER_LEFT_CORNER.code);
-        borderStylingItems.add(ThinFont.LOWER_RIGHT_CORNER.code);
+        borders.add(ThinFont.LOWER_LEFT_CORNER.code);
+        borders.add(ThinFont.LOWER_RIGHT_CORNER.code);
       }
       case DOUBLE -> {
-        borderStylingItems.add(DoubleFont.LOWER_LEFT_CORNER.code);
-        borderStylingItems.add(DoubleFont.LOWER_RIGHT_CORNER.code);
+        borders.add(DoubleFont.LOWER_LEFT_CORNER.code);
+        borders.add(DoubleFont.LOWER_RIGHT_CORNER.code);
       }
     }
 
     switch (centerMark) {
-      case BOLD -> borderStylingItems.add(BoldFont.BASE_LINE.code);
-      case THIN -> borderStylingItems.add(ThinFont.BASE_LINE.code);
-      case DOUBLE -> borderStylingItems.add(DoubleFont.BASE_LINE.code);
+      case BOLD -> borders.add(BoldFont.BASE_LINE.code);
+      case THIN -> borders.add(ThinFont.BASE_LINE.code);
+      case DOUBLE -> borders.add(DoubleFont.BASE_LINE.code);
     }
 
     switch (baseLine) {
-      case BOLD -> borderStylingItems.add(BoldFont.BASE_LINE.code);
-      case THIN -> borderStylingItems.add(ThinFont.BASE_LINE.code);
-      case DOUBLE -> borderStylingItems.add(DoubleFont.BASE_LINE.code);
+      case BOLD -> borders.add(BoldFont.BASE_LINE.code);
+      case THIN -> borders.add(ThinFont.BASE_LINE.code);
+      case DOUBLE -> borders.add(DoubleFont.BASE_LINE.code);
     }
 
-    var baseline = generateLine('_', scale, borderStylingItems.get(3));
+    var baseline = faceGenerator('_', scale, borders.get(3));
 
-    return borderStylingItems.get(0) + baseline +
-           borderStylingItems.get(2) + baseline +
-           borderStylingItems.get(1) + "\n";
+    return
+         new StringBuilder(baseline)
+              .insert(0, borders.get(0))
+              .append(borders.get(2))
+              .append(baseline)
+              .append(borders.get(1))
+              .append("\n")
+              .toString();
   }
 
-  private static Character faceCreator(Border corner) {
+  private static Character formattingFace(Border faceFormat) {
 
-    return switch (corner) {
+    return switch (faceFormat) {
       case BOLD -> BoldFont.FACE_LINE.code;
       case THIN -> ThinFont.FACE_LINE.code;
       case DOUBLE -> DoubleFont.FACE_LINE.code;
