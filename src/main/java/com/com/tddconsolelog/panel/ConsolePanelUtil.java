@@ -11,6 +11,8 @@ public class ConsolePanelUtil {
 
     simplePanel("Simple Panel Scalable", "My First Topic");
 
+    simplePanel("Only Title Test");
+
     panel(
          21,
          2,
@@ -79,10 +81,10 @@ public class ConsolePanelUtil {
     var marginTitle = scale - (title.length() / 2) - estimatedAdjustmentFactor;
     var formattedTexts =
          Stream.of(titleAndTopics)
-               .map(item -> item.equals(title) && centralizeTitle ?
-                    " ".repeat(marginTitle) + title : item)
-               .map(item -> item.equals(title) && capitalizeTitle ?
-                    item.toUpperCase() : item)
+               .map(textItem -> textItem.equals(title) && centralizeTitle ?
+                    " ".repeat(marginTitle) + title : textItem)
+               .map(textItem -> textItem.equals(title) && capitalizeTitle ?
+                    textItem.toUpperCase() : textItem)
                .toArray();
 
     var marginLimitedBySize = Math.min(margin, scale);
@@ -121,7 +123,7 @@ public class ConsolePanelUtil {
                 .append("%s%%-%ss".formatted(marginTopic, fillingUpTitleExcedentSpaces))
                 .append(leftFace)
                 .append("\n")
-                .append(dividerFace);
+                .append(formattedTexts.length > 1 ? dividerFace : "");
 
 
     var fillingUpTopicExcedentSpaces = String.valueOf(fullSize - 4);
