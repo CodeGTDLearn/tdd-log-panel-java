@@ -126,6 +126,7 @@ public class ConsolePanelUtil {
                 .append(formattedTexts.length > 1 ? dividerFace : "");
 
 
+
     var fillingUpTopicExcedentSpaces = String.valueOf(fullSize - 4);
     var topicEnumeration = 0;
     var symbolEnumerator = '\u2070';
