@@ -1,8 +1,6 @@
-<h2 align="center">Learning Journey</h2>
-<h2 align="center">Oracle Certified Professional: Java SE 17 Developer 1Z0-829</h2>
+<h2 align="center">Console output to Frame</h2>
 
 ### Index
-
 * [Disclaimer](#Disclaimer)
 * [Objective](#objective)
 * [StackOverFlow Requests](#stackoverflow-requests)
