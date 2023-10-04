@@ -1,7 +1,7 @@
 package com.com.tddconsolelog.panel;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
+     import java.util.stream.Stream;
 
 public class ConsolePanelUtil {
 
@@ -16,6 +16,7 @@ public class ConsolePanelUtil {
     simplePanelPlus(
          false,
          true,
+         true,
          "no Divider | Yes for laterals",
          "Topic 1",
          "Topic 2");
@@ -23,11 +24,13 @@ public class ConsolePanelUtil {
     simplePanelPlus(
          true,
          false,
+         false,
          "Yes for Divider | No for laterals",
          "Topic 1",
          "Topic 2");
 
     simplePanelPlus(
+         true,
          true,
          true,
          "Yes for Divider | Yes for laterals",
@@ -48,6 +51,7 @@ public class ConsolePanelUtil {
          true,
          true,
          true,
+         true,
          "Full Panel", "My First Topic text", "My Second Topic text"
     );
 
@@ -64,6 +68,7 @@ public class ConsolePanelUtil {
          true,
          false,
          false,
+         false,
          "Full Panel No Lateral/Divider", "First Topic", "Second Topic"
     );
 
@@ -78,6 +83,7 @@ public class ConsolePanelUtil {
          Border.THIN,
          true,
          true,
+         false,
          false,
          false,
          "Full Panel No Lateral/Divider"
@@ -100,6 +106,7 @@ public class ConsolePanelUtil {
          true,
          true,
          true,
+         true,
          texts
     );
   }
@@ -107,6 +114,7 @@ public class ConsolePanelUtil {
   public static void simplePanelPlus(
        boolean enableDivider,
        boolean enableLateralFaces,
+       boolean enableNumericTopics,
        String... texts) {
 
     fullPanel(
@@ -122,6 +130,7 @@ public class ConsolePanelUtil {
          true,
          enableLateralFaces,
          enableDivider,
+         enableNumericTopics,
          texts
     );
   }
@@ -137,6 +146,7 @@ public class ConsolePanelUtil {
          Border.DOUBLE,
          Border.THIN,
          Border.THIN,
+         true,
          true,
          true,
          true,
@@ -158,6 +168,7 @@ public class ConsolePanelUtil {
        boolean centralizeTitle,
        boolean enableLateralFaces,
        boolean enableDivider,
+       boolean enableNumericTopics,
        String... titleAndTopics) {
 
     var estimatedAdjustmentFactor = 3;
@@ -214,14 +225,16 @@ public class ConsolePanelUtil {
     var fillingUpTopicExcedentSpaces = String.valueOf(fullSize - 4);
     var topicEnumeration = 0;
     var symbolEnumerator = '\u2070';
+    var parenthesisEnumerator = ')';
 
     for (int i = formattedTexts.length - 1; i > 0; i--) {
       ++ topicEnumeration;
       textSccafold.append(rightFace)
-                  .append("%s%s%s) %%-%ss".formatted(
+                  .append("%s%s%s%s %%-%ss".formatted(
                        marginTopic,
-                       topicEnumeration,
-                       symbolEnumerator,
+                       enableNumericTopics ? topicEnumeration : "",
+                       enableNumericTopics ? symbolEnumerator : "",
+                       enableNumericTopics ? parenthesisEnumerator : "",
                        fillingUpTopicExcedentSpaces
                   ))
                   .append(rightFace)
