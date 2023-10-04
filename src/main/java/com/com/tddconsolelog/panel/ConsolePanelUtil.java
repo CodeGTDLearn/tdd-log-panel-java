@@ -13,7 +13,7 @@ public class ConsolePanelUtil {
 
     simplePanel("Only Title Test");
 
-    panel(
+    fullPanel(
          21,
          2,
          3,
@@ -24,14 +24,48 @@ public class ConsolePanelUtil {
          Border.THIN,
          true,
          true,
+         true,
+         true,
          "Full Panel", "My First Topic text", "My Second Topic text"
+    );
+
+    fullPanel(
+         21,
+         2,
+         3,
+         3,
+         Border.BOLD,
+         Border.DOUBLE,
+         Border.DOUBLE,
+         Border.THIN,
+         true,
+         true,
+         false,
+         false,
+         "Full Panel No Lateral/Divider", "First Topic", "Second Topic"
+    );
+
+    fullPanel(
+         21,
+         2,
+         3,
+         3,
+         Border.BOLD,
+         Border.DOUBLE,
+         Border.DOUBLE,
+         Border.THIN,
+         true,
+         true,
+         false,
+         false,
+         "Full Panel No Lateral/Divider"
     );
 
   }
 
   public static void simplePanel(String... texts) {
 
-    panel(
+    fullPanel(
          21,
          5,
          1,
@@ -42,13 +76,15 @@ public class ConsolePanelUtil {
          Border.THIN,
          true,
          true,
+         true,
+         true,
          texts
     );
   }
 
   public static void scalablePanel(int scale, String... texts) {
 
-    panel(
+    fullPanel(
          scale,
          5,
          1,
@@ -59,11 +95,13 @@ public class ConsolePanelUtil {
          Border.THIN,
          true,
          true,
+         true,
+         true,
          texts
     );
   }
 
-  public static void panel(
+  public static void fullPanel(
        int scale,
        int margin,
        int headerSpaces,
@@ -74,6 +112,8 @@ public class ConsolePanelUtil {
        Border lateralFaceFormat,
        boolean capitalizeTitle,
        boolean centralizeTitle,
+       boolean enableLateralFaces,
+       boolean enableDivider,
        String... titleAndTopics) {
 
     var estimatedAdjustmentFactor = 3;
@@ -104,16 +144,17 @@ public class ConsolePanelUtil {
     var footer = "\n".repeat(footerSpaces);
 
     var upperFace =
-         upperFaceCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat);
+         upperLineCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat);
 
-    var dividerFace =
-         middleFaceCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat);
+    var dividerFace = enableDivider ?
+         middleLineCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat)
+         : "";
 
     var bottomFace =
-         bottomFaceCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat);
+         bottomLineCreator(scale, cornerFormat, centerMarkFormat, horizontalFaceFormat);
 
-    var rightFace = formattingFace(lateralFaceFormat);
-    var leftFace = formattingFace(lateralFaceFormat);
+    var rightFace = enableLateralFaces ? formattingFace(lateralFaceFormat) : "";
+    var leftFace = enableLateralFaces ? formattingFace(lateralFaceFormat) : "";
 
     var fillingUpTitleExcedentSpaces = String.valueOf(fullSize);
     var textSccafold = new StringBuilder();
@@ -124,7 +165,6 @@ public class ConsolePanelUtil {
                 .append(leftFace)
                 .append("\n")
                 .append(formattedTexts.length > 1 ? dividerFace : "");
-
 
 
     var fillingUpTopicExcedentSpaces = String.valueOf(fullSize - 4);
@@ -157,7 +197,7 @@ public class ConsolePanelUtil {
     return sb.toString();
   }
 
-  private static String upperFaceCreator(
+  private static String upperLineCreator(
        int scale,
        Border corner,
        Border centerMark,
@@ -203,7 +243,7 @@ public class ConsolePanelUtil {
               .toString();
   }
 
-  private static String middleFaceCreator(
+  private static String middleLineCreator(
        int scale,
        Border corner,
        Border centerMark,
@@ -249,7 +289,7 @@ public class ConsolePanelUtil {
               .toString();
   }
 
-  private static String bottomFaceCreator(
+  private static String bottomLineCreator(
        int scale,
        Border corner,
        Border centerMark,
