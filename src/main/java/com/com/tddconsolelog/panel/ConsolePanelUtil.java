@@ -1,7 +1,7 @@
 package com.com.tddconsolelog.panel;
 
 import java.util.ArrayList;
-     import java.util.stream.Stream;
+import java.util.stream.Stream;
 
 public class ConsolePanelUtil {
 
@@ -19,7 +19,8 @@ public class ConsolePanelUtil {
          true,
          "no Divider | Yes for laterals",
          "Topic 1",
-         "Topic 2");
+         "Topic 2"
+    );
 
     simplePanelPlus(
          true,
@@ -27,7 +28,8 @@ public class ConsolePanelUtil {
          false,
          "Yes for Divider | No for laterals",
          "Topic 1",
-         "Topic 2");
+         "Topic 2"
+    );
 
     simplePanelPlus(
          true,
@@ -35,7 +37,8 @@ public class ConsolePanelUtil {
          true,
          "Yes for Divider | Yes for laterals",
          "Topic 1",
-         "Topic 2");
+         "Topic 2"
+    );
 
 
     fullPanel(
@@ -174,13 +177,27 @@ public class ConsolePanelUtil {
     var estimatedAdjustmentFactor = 3;
     var title = titleAndTopics[0];
     var marginTitle = scale - (title.length() / 2) - estimatedAdjustmentFactor;
-    var formattedTexts =
+/*    var formattedTexts =
          Stream.of(titleAndTopics)
                .map(textItem -> textItem.equals(title) && centralizeTitle ?
                     " ".repeat(marginTitle) + title : textItem)
                .map(textItem -> textItem.equals(title) && capitalizeTitle ?
                     textItem.toUpperCase() : textItem)
                .toArray();
+               */
+    var formattedTexts =
+         titleAndTopics.length > 1
+              ? Stream.of(titleAndTopics)
+                      .map(textItem ->
+                                textItem.equals(title) && centralizeTitle ?
+                                     " ".repeat(marginTitle) + title
+                                     : textItem)
+                      .map(textItem ->
+                                textItem.equals(title) && capitalizeTitle ?
+                                     textItem.toUpperCase()
+                                     : textItem)
+                      .toArray()
+              : titleAndTopics;
 
     var marginLimitedBySize = Math.min(margin, scale);
 
