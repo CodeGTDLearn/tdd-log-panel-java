@@ -13,6 +13,28 @@ public class ConsolePanelUtil {
 
     simplePanel("Only Title Test");
 
+    simplePanelPlus(
+         false,
+         true,
+         "no Divider | Yes for laterals",
+         "Topic 1",
+         "Topic 2");
+
+    simplePanelPlus(
+         true,
+         false,
+         "Yes for Divider | No for laterals",
+         "Topic 1",
+         "Topic 2");
+
+    simplePanelPlus(
+         true,
+         true,
+         "Yes for Divider | Yes for laterals",
+         "Topic 1",
+         "Topic 2");
+
+
     fullPanel(
          21,
          2,
@@ -78,6 +100,28 @@ public class ConsolePanelUtil {
          true,
          true,
          true,
+         texts
+    );
+  }
+
+  public static void simplePanelPlus(
+       boolean enableDivider,
+       boolean enableLateralFaces,
+       String... texts) {
+
+    fullPanel(
+         21,
+         5,
+         1,
+         1,
+         Border.DOUBLE,
+         Border.DOUBLE,
+         Border.THIN,
+         Border.THIN,
+         true,
+         true,
+         enableLateralFaces,
+         enableDivider,
          texts
     );
   }
