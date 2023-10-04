@@ -7,6 +7,7 @@
 * [ASCII Sources](#ascii-sources)
 * [Console Log Examples](#console-log-examples)
 * [Parameters Example](#parameters-example)
+* [IDE Console](#ide-console)
 
 ### Disclaimer
 1. The strucuture of this app was done without any refactoring
@@ -37,4 +38,8 @@
 ![img_3.png](img_3.png) 
 
 ### Parameters Examples
-![img_4.png](img_4.png)
+![img_4.png](img_4.png) 
+
+### IDE Console 
+1. For Gradle "run and Build", the IDE (IntelliJ below) should be configured as:
+![img_5.png](img_5.png)
