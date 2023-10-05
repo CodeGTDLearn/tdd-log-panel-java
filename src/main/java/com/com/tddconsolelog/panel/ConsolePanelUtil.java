@@ -1,6 +1,7 @@
 package com.com.tddconsolelog.panel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class ConsolePanelUtil {
@@ -185,10 +186,15 @@ public class ConsolePanelUtil {
        boolean enableNumericTopics,
        String... titleAndTopics) {
 
-    var estimatedAdjustmentFactor = 3;
+    /*╔════════════════════════════════════════════════════════════════╗
+      ║              Adjustment Factor for the Tile                    ║
+      ╠════════════════════════════════════════════════════════════════╣
+      ║ This value can be 'positive' or 'negative'                     ║
+      ║ and should be changed untill the title become well centralized ║
+      ╚════════════════════════════════════════════════════════════════╝*/
+    var adjustmentFactorForTitle = -1;
     var title = titleAndTopics[0];
-//  var marginTitle = scale - (title.length() / 2) - estimatedAdjustmentFactor;
-    var marginTitle = scale - ((title.length() / 2) - estimatedAdjustmentFactor);
+    var marginTitle = scale - ((title.length() / 2) - adjustmentFactorForTitle);
 /*    String[] formattedTexts =
          Stream.of(titleAndTopics)
                .map(textItem -> textItem.equals(title) && centralizeTitle ?
@@ -258,22 +264,24 @@ public class ConsolePanelUtil {
 
     for (int i = formattedTexts.length - 1; i > 0; i--) {
       ++ topicEnumeration;
-      textSccafold.append(rightFace)
-                  .append("%s%s%s%s %%-%ss".formatted(
-                       marginTopic,
-                       enableNumericTopics ? topicEnumeration : "",
-                       enableNumericTopics ? symbolEnumerator : "",
-                       enableNumericTopics ? parenthesisEnumerator : "",
-                       fillingUpTopicExcedentSpaces
-                  ))
-                  .append(rightFace)
-                  .append("\n");
+      textSccafold
+           .append(rightFace)
+           .append("%s%s%s%s %%-%ss".formatted(
+                marginTopic,
+                enableNumericTopics ? topicEnumeration : "",
+                enableNumericTopics ? symbolEnumerator : "",
+                enableNumericTopics ? parenthesisEnumerator : "",
+                fillingUpTopicExcedentSpaces
+           ))
+           .append(rightFace)
+           .append("\n");
     }
 
     textSccafold.append(bottomFace)
                 .append(footer);
 
     System.out.printf(textSccafold.toString(), formattedTexts);
+    System.out.println(textSccafold.toString().formatted(formattedTexts));
   }
 
   private static String faceGenerator(int scale, char BASE_LINE) {
@@ -492,35 +500,3 @@ public class ConsolePanelUtil {
     BOLD, THIN, DOUBLE
   }
 }
-
-//    private static String simpleLineStyle(String str) {
-//
-//      return str.replace('a', '\u250c')
-//                .replace('b', '\u252c')
-//                .replace('c', '\u2510')
-//                .replace('d', '\u251c')
-//                .replace('e', '\u253c')
-//                .replace('f', '\u2524')
-//                .replace('g', '\u2514')
-//                .replace('h', '\u2534')
-//                .replace('i', '\u2518')
-//                .replace('_', '\u2500')
-//                .replace('|', '\u2502');
-//    }
-
-//    private static String mixedLineStyle(String str) {
-//      //source: https://en.wikipedia.org/wiki/Box-drawing_character
-//      return str.replace('a', '\u250F')
-//                .replace('b', '\u252c')
-//                .replace('c', '\u2513')
-//                .replace('d', '\u2523')
-//                .replace('e', '\u253c')
-//                .replace('f', '\u252B')
-//                .replace('g', '\u2517')
-//                .replace('h', '\u2534')
-//                .replace('i', '\u251B')
-//                .replace('-', '\u2501')
-//                .replace('_', '\u2500')
-//                .replace('*', '\u2501')
-//                .replace('|', '\u2502');
-//    }
