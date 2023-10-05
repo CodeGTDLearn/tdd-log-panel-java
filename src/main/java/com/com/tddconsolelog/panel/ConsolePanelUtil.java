@@ -1,20 +1,22 @@
 package com.com.tddconsolelog.panel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class ConsolePanelUtil {
 
   public static void main(String[] args) {
 
-    scalablePanel(21, "Simple Panel Scalable", "My First Topic");
+    var panel1 = scalablePanel(21, "Simple Panel Scalable", "My First Topic");
+    System.out.println(panel1);
 
-    simplePanel("Simple Panel Scalable", "My First Topic");
+    var panel2 = simplePanel("Simple Panel Scalable", "My First Topic");
+    System.out.println(panel2);
 
-    simplePanel("Only Title Test");
+    var panel3 = simplePanel("Only Title Test");
+    System.out.println(panel3);
 
-    simplePanelPlus(
+    var panel4 = simplePanelPlus(
          false,
          true,
          true,
@@ -23,8 +25,9 @@ public class ConsolePanelUtil {
          "Topic 1",
          "Topic 2"
     );
+    System.out.println(panel4);
 
-    simplePanelPlus(
+    var panel5 = simplePanelPlus(
          true,
          false,
          false,
@@ -33,8 +36,9 @@ public class ConsolePanelUtil {
          "Topic 1",
          "Topic 2"
     );
+    System.out.println(panel5);
 
-    simplePanelPlus(
+    var panel6 = simplePanelPlus(
          true,
          true,
          true,
@@ -43,16 +47,18 @@ public class ConsolePanelUtil {
          "Topic 1",
          "Topic 2"
     );
+    System.out.println(panel6);
 
-    simplePanelPlus(
+    var panel7 = simplePanelPlus(
          true,
          true,
          false,
          2,
          "Yes for Divider | Yes for laterals"
     );
+    System.out.println(panel7);
 
-    fullPanel(
+    var panel8 = fullPanel(
          21,
          2,
          3,
@@ -68,8 +74,9 @@ public class ConsolePanelUtil {
          true,
          "Full Panel", "My First Topic text", "My Second Topic text"
     );
+    System.out.println(panel8);
 
-    fullPanel(
+    var panel9 = fullPanel(
          21,
          2,
          3,
@@ -85,8 +92,9 @@ public class ConsolePanelUtil {
          false,
          "Full Panel No Lateral/Divider", "First Topic", "Second Topic"
     );
+    System.out.println(panel9);
 
-    fullPanel(
+    var panel10 = fullPanel(
          21,
          2,
          3,
@@ -102,12 +110,12 @@ public class ConsolePanelUtil {
          false,
          "Full Panel No Lateral/Divider"
     );
-
+    System.out.println(panel10);
   }
 
-  public static void simplePanel(String... texts) {
+  public static String simplePanel(String... texts) {
 
-    fullPanel(
+    return fullPanel(
          21,
          5,
          1,
@@ -125,14 +133,14 @@ public class ConsolePanelUtil {
     );
   }
 
-  public static void simplePanelPlus(
+  public static String simplePanelPlus(
        boolean enableDivider,
        boolean enableLateralFaces,
        boolean enableNumericTopics,
        int margin,
        String... texts) {
 
-    fullPanel(
+    return fullPanel(
          21,
          margin,
          1,
@@ -150,9 +158,9 @@ public class ConsolePanelUtil {
     );
   }
 
-  public static void scalablePanel(int scale, String... texts) {
+  public static String scalablePanel(int scale, String... texts) {
 
-    fullPanel(
+    return fullPanel(
          scale,
          5,
          1,
@@ -170,7 +178,7 @@ public class ConsolePanelUtil {
     );
   }
 
-  public static void fullPanel(
+  public static String fullPanel(
        int scale,
        int margin,
        int headerSpaces,
@@ -192,7 +200,7 @@ public class ConsolePanelUtil {
       ║ This value can be 'positive' or 'negative'                     ║
       ║ and should be changed untill the title become well centralized ║
       ╚════════════════════════════════════════════════════════════════╝*/
-    var adjustmentFactorForTitle = -1;
+    var adjustmentFactorForTitle = - 1;
     var title = titleAndTopics[0];
     var marginTitle = scale - ((title.length() / 2) - adjustmentFactorForTitle);
 /*    String[] formattedTexts =
@@ -280,8 +288,10 @@ public class ConsolePanelUtil {
     textSccafold.append(bottomFace)
                 .append(footer);
 
-    System.out.printf(textSccafold.toString(), formattedTexts);
-    System.out.println(textSccafold.toString().formatted(formattedTexts));
+    //    System.out.printf(textSccafold.toString(), formattedTexts);
+    //    System.out.println(textSccafold.toString().formatted(formattedTexts));
+    return textSccafold.toString()
+                       .formatted(formattedTexts);
   }
 
   private static String faceGenerator(int scale, char BASE_LINE) {
