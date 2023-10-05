@@ -202,7 +202,8 @@ public class ConsolePanelUtil {
       ╚════════════════════════════════════════════════════════════════╝*/
     var adjustmentFactorForTitle = - 1;
     var title = titleAndTopics[0];
-    var marginTitle = scale - ((title.length() / 2) - adjustmentFactorForTitle);
+    var marginTitleCalculation = scale - ((title.length() / 2) - adjustmentFactorForTitle);
+    var marginTitle = Math.max(marginTitleCalculation, 0);
 /*    String[] formattedTexts =
          Stream.of(titleAndTopics)
                .map(textItem -> textItem.equals(title) && centralizeTitle ?
