@@ -17,6 +17,7 @@ public class ConsolePanelUtil {
          false,
          true,
          true,
+         5,
          "no Divider | Yes for laterals",
          "Topic 1",
          "Topic 2"
@@ -26,6 +27,7 @@ public class ConsolePanelUtil {
          true,
          false,
          false,
+         5,
          "Yes for Divider | No for laterals",
          "Topic 1",
          "Topic 2"
@@ -35,11 +37,19 @@ public class ConsolePanelUtil {
          true,
          true,
          true,
+         5,
          "Yes for Divider | Yes for laterals",
          "Topic 1",
          "Topic 2"
     );
 
+    simplePanelPlus(
+         true,
+         true,
+         false,
+         2,
+         "Yes for Divider | Yes for laterals"
+    );
 
     fullPanel(
          21,
@@ -118,11 +128,12 @@ public class ConsolePanelUtil {
        boolean enableDivider,
        boolean enableLateralFaces,
        boolean enableNumericTopics,
+       int margin,
        String... texts) {
 
     fullPanel(
          21,
-         5,
+         margin,
          1,
          1,
          Border.DOUBLE,
@@ -176,8 +187,9 @@ public class ConsolePanelUtil {
 
     var estimatedAdjustmentFactor = 3;
     var title = titleAndTopics[0];
-    var marginTitle = scale - (title.length() / 2) - estimatedAdjustmentFactor;
-/*    var formattedTexts =
+//  var marginTitle = scale - (title.length() / 2) - estimatedAdjustmentFactor;
+    var marginTitle = scale - ((title.length() / 2) - estimatedAdjustmentFactor);
+/*    String[] formattedTexts =
          Stream.of(titleAndTopics)
                .map(textItem -> textItem.equals(title) && centralizeTitle ?
                     " ".repeat(marginTitle) + title : textItem)
@@ -185,7 +197,7 @@ public class ConsolePanelUtil {
                     textItem.toUpperCase() : textItem)
                .toArray();
                */
-    var formattedTexts =
+    Object[] formattedTexts =
          titleAndTopics.length > 1
               ? Stream.of(titleAndTopics)
                       .map(textItem ->
